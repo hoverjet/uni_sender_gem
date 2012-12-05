@@ -41,7 +41,7 @@ describe UniSender::Client do
   end
 
   it 'should import contacts' do
-    answer = test_client.import_contacts(:field_names => [ "email", "email_list_ids" ], :data => {0 => ["test@example.com", "123"] })
+    answer = test_client.import_contacts(:field_names => [ "email", "email_list_ids" ], :data => {0 => ["test@example.com", "123"], 1=> ["123@example.com", "123"] })
     answer.should include('result')
     answer['log'].should be_nil
   end

@@ -26,20 +26,6 @@ module UniSender
 
     private
 
-      def translate_params(params)
-        params.inject({}) do |iparams, couple|
-          iparams[couple.first] = case couple.last
-          when Hash
-            couple.last.each do |key, value|
-              iparams["#{couple.first}[#{key}]"] = value.to_s
-            end
-          else
-            couple.last
-          end
-          iparams
-        end
-      end
-
       def method_missing(undefined_action, *args, &block)
         params = (args.first.is_a?(Hash) ? args.first : {} )
         params.merge!({'api_key'=>api_key, 'format'=>'json'})
@@ -47,7 +33,6 @@ module UniSender
       end
 
       def default_request(action, params={})
-        params = translate_params(params) if defined?('translate_params')
         url = "http://api.unisender.com/#{locale}/api/#{action}"
         JSON.parse(Curl::Easy.http_post(url, params.to_param).body_str)
       end

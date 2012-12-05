@@ -2,6 +2,8 @@ require "uni_sender/version"
 require 'uni_sender/camelize'
 require 'net/http'
 require 'json'
+require 'active_support/core_ext/object/to_query'
+require 'curb'
 
 module UniSender
 
@@ -31,7 +33,6 @@ module UniSender
             couple.last.each do |key, value|
               iparams["#{couple.first}[#{key}]"] = value.to_s
             end
-            nil
           else
             couple.last
           end
@@ -41,19 +42,14 @@ module UniSender
 
       def method_missing(undefined_action, *args, &block)
         params = (args.first.is_a?(Hash) ? args.first : {} )
+        params.merge!({'api_key'=>api_key, 'format'=>'json'})
         default_request(undefined_action.to_s.camelize(false), params)
       end
 
       def default_request(action, params={})
         params = translate_params(params) if defined?('translate_params')
-        params.merge!({'api_key'=>api_key, 'format'=>'json'})
-        query = make_query(params)
-        url = URI("http://api.unisender.com/#{locale}/api/#{action}")
-        JSON.parse(Net::HTTP.post_form(url, query).body)
-      end
-
-      def make_query(params)
-        params.delete_if{|k,v| v.to_s.empty?}
+        url = "http://api.unisender.com/#{locale}/api/#{action}"
+        JSON.parse(Curl::Easy.http_post(url, params.to_param).body_str)
       end
 
   end

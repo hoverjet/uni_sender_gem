@@ -12,6 +12,8 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'guard-rspec'
   gem.add_development_dependency 'ruby_gntp'
   gem.add_dependency 'json'
+  gem.add_dependency 'curb'
+  gem.add_runtime_dependency 'active_support'
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")

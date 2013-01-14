@@ -1,13 +1,13 @@
 require 'rubygems'
 require 'bundler/setup'
 
+require 'coveralls'
+Coveralls.wear!
+
 Bundler.require(:default)
 
 require 'uni_sender'
 require "data_macros"
-
-require 'coveralls'
-Coveralls.wear!
 
 RSpec.configure do |config|
 

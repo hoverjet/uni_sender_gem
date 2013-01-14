@@ -1,6 +1,7 @@
 = UniSender
 
 {<img src="https://travis-ci.org/kaize/uni_sender_gem.png" />}[https://travis-ci.org/kaize/uni_sender_gem]
+[![Coverage status](https://coveralls.io/repos/kaize/uni_sender_gem/badge.png?branch=master)](https://coveralls.io/repos/kaize/uni_sender_gem)
 
 uni_sender gem provides full dev kit to access to api of unisender.com.ua. It uses method_missing method to provide flexible functionality, so all methods will return hash that represents responce of server.
 

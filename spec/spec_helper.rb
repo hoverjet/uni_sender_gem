@@ -6,6 +6,9 @@ Bundler.require(:default)
 require 'uni_sender'
 require "data_macros"
 
+require 'coveralls'
+Coveralls.wear!
+
 RSpec.configure do |config|
 
   config.include(DataMacros)

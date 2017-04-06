@@ -33,7 +33,7 @@ module UniSender
       end
 
       def default_request(action, params={})
-        url = "http://api.unisender.com/#{locale}/api/#{action}"
+        url = "https://api.unisender.com/#{locale}/api/#{action}"
         JSON.parse(Curl::Easy.http_post(url, params.to_param).body_str)
       end
 
